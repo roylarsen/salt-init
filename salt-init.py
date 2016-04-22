@@ -2,17 +2,17 @@ import sys, getopt, os
 
 def create_formula(name):
   if not os.path.exists(name):
-    print "Creating " + name + "..."
+    print "Creating {name}/...".format(name = name)
     os.makedirs(name)
-    print "Creating " + name + "/files/..."
+    print "Creating {name}/files/...".format(name = name)
     os.makedirs(name + "/files")
-    print "Creating " + name + "/templates/..."
+    print "Creating {name}/templates/...".format(name=name)
     os.makedirs(name + "/templates")
-    print "Creating " + name + "/init.sls..."
+    print "Creating {name}/init.sls...".format(name=name)
     with open(name + "/init.sls", "a+") as f:
       f.write('{% from "' + name + '/map.jinja" import ' + name + ' with context %}')
       f.close()
-    print "Creating " + name + "/map.jinja..."
+    print "Creating {name}/map.jinja...".format(name=name)
     with open(name + "/map.jinja", "a+") as f:
       map_content = "{% set " + """{NAME} = salt['grains.filter_by']({{
     'default': {{}}
