@@ -2,18 +2,21 @@ import sys, getopt, os
 
 def create_formula(name):
   if not os.path.exists(name):
-    print "Creating {name}/...".format(name = name)
+    #Yes, this is dumb. I'm also a bad programmer, so, #dealwithit.
+    print "Creating {name}/...".format(name=name)
     os.makedirs(name)
-    print "Creating {name}/files/...".format(name = name)
-    os.makedirs(name + "/files")
-    print "Creating {name}/templates/...".format(name=name)
-    os.makedirs(name + "/templates")
-    print "Creating {name}/init.sls...".format(name=name)
-    with open(name + "/init.sls", "a+") as f:
-      f.write('{% from "' + name + '/map.jinja" import ' + name + ' with context %}')
+    print "Creating {name}/{name}/...".format(name=name)
+    os.makedirs("{name}/{name}".format(name=name))
+    print "Creating {name}/{name}/files/...".format(name=name)
+    os.makedirs("{name}/{name}/files".format(name=name))
+    print "Creating {name}/{name}/templates/...".format(name=name)
+    os.makedirs("{name}/{name}/templates".format(name=name))
+    print "Creating {name}/{name}/init.sls...".format(name=name)
+    with open("{name}/{name}/init.sls".format(name=name), "a+") as f:
+      f.write('{{% from "{name}/map.jinja" import {name} with context %}}'.format(name=name))
       f.close()
-    print "Creating {name}/map.jinja...".format(name=name)
-    with open(name + "/map.jinja", "a+") as f:
+    print "Creating {name}/{name}/map.jinja...".format(name=name)
+    with open("{name}/{name}/map.jinja".format(name=name), "a+") as f:
       map_content = "{% set " + """{NAME} = salt['grains.filter_by']({{
     'default': {{}}
 }},
