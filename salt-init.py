@@ -24,6 +24,11 @@ merge=salt['pillar.get']('{NAME}:lookup'))
 """.format(NAME = name) + "%}"
       f.write(map_content)
       f.close()
+      print "Creating {name}/pillar.example...".format(name=name)
+      with open("{name}/pillar.example".format(name=name), "a+") as f:
+        f.write("""{name}:
+    lookup:""".format(name=name))
+        f.close()
 
 def main(argv):
   try:
