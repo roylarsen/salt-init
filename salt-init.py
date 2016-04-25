@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import sys, getopt, os
 
 def create_formula(name):
