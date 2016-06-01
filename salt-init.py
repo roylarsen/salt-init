@@ -30,9 +30,35 @@ merge=salt['pillar.get']('{NAME}:lookup'))
     lookup:""".format(name=name))
         f.close()
 
+def create_testing(name):
+  print name
+  if not os.path.exists("{0}-formula/.kitchen.yml".format(name)):
+    print "Creating kitchen yaml file"
+    with open("{0}-formula/.kitchen.yml".format(name), "a+") as f:
+      content = """---
+driver:
+  name:
+
+platforms:
+  - name:
+
+provisioner:
+  name: salt_solo
+  formula: {0}
+  state_top:
+    base:
+      '*':
+        - {0}
+
+suites:
+  - name: default
+""".format(name)
+      f.write(content)
+      f.close()
+
 def main(argv):
   try:
-    opts, args = getopt.getopt(argv, "hf:")
+    opts, args = getopt.getopt(argv, "hf:t")
   except getopt.GetoptError:
     print 'salt-init.py -f <Formula Name>'
     sys.exit(2)
@@ -43,6 +69,9 @@ def main(argv):
       sys.exit()
     elif opt in ("-f"):
       create_formula(arg)
+      name = arg
+    elif opt in ("-t"):
+      create_testing(name)
 
 if __name__ == "__main__":
   main(sys.argv[1:])
