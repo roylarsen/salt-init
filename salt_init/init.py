@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import sys, getopt, os
+import sys, os
 
 def create_formula(name):
   if not os.path.exists(name):
@@ -56,23 +56,3 @@ suites:
 """.format(name)
       f.write(content)
       f.close()
-
-def main(argv):
-  try:
-    opts, args = getopt.getopt(argv, "hf:t")
-  except getopt.GetoptError:
-    print 'salt-init.py -f <Formula Name>'
-    sys.exit(2)
-
-  for opt, arg in opts:
-    if opt == '-h':
-      print 'salt-init.py -f <Formula Name>'
-      sys.exit()
-    elif opt in ("-f"):
-      create_formula(arg)
-      name = arg
-    elif opt in ("-t"):
-      create_testing(name)
-
-if __name__ == "__main__":
-  main(sys.argv[1:])
