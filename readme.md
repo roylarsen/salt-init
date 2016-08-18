@@ -1,9 +1,15 @@
-## salt-init.py
+## salt-init
 
 Right now it just creates the scaffolding for saltstack formulas
 
-### usage
+### Installation
 
-python salt-init.py -f Formula
+From the repo directory (with the setup.py)
 
-In case you forget: that's why god invented the -h flag
+pip install .
+
+### Usage
+
+salt-init -f Formula
+
+In case you forget: that's why god invented the --help flag
